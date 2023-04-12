@@ -1,4 +1,4 @@
-package Builder
+package ImageBuilder
 
 import (
 	"bufio"
