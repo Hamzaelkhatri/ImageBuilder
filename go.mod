@@ -1,3 +1,3 @@
-module Builder
+module ImageBuilder
 
 go 1.19
