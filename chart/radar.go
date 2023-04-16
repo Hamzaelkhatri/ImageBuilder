@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"runtime"
 
 	"github.com/chromedp/chromedp"
 	"github.com/go-echarts/go-echarts/v2/charts"
@@ -91,7 +90,7 @@ func (Radar) Generate(Data [][]float32) string {
 	page.AddCharts(
 		radarStyle(),
 	)
-	f, err := os.Create("radar.html")
+	f, err := os.CreateTemp("", "radar*.html")
 	if err != nil {
 		panic(err)
 	}
@@ -101,11 +100,12 @@ func (Radar) Generate(Data [][]float32) string {
 
 	// Navigate to the HTML page
 	var buf []byte
-	// get full path
-	_, filename, _, _ := runtime.Caller(0)
-	filename = filename[:len(filename)-len("chart/radar.go")]
-	log.Println("file://" + filename)
-	if err := chromedp.Run(ctx, chromedp.Navigate("file://"+filename+f.Name()),
+	// get full of temporary of radar.html
+	path := f.Name()
+	// _, filename
+	// filename = filename[:len(filename)-len("chart/radar.go")]
+	log.Println(path)
+	if err := chromedp.Run(ctx, chromedp.Navigate("file://"+path),
 		chromedp.CaptureScreenshot(&buf),
 	); err != nil {
 		log.Fatal(err)

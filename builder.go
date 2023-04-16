@@ -76,17 +76,11 @@ func drawRectangle(img draw.Image, x, y, w, h, rx, ry int, c color.Color) {
 	ctx.FillStroke()
 }
 
-func CardProfile(card CardData, base string) string {
-	// img := image.NewRGBA(image.Rect(0, 0, 300, 300))
+func CardProfile(card CardData, radar string) string {
 	Card := image.NewRGBA(image.Rect(0, 0, 1500, 1000))
-
-	// e := chart.Radar{}
-	// e.Generate()
-	// Background image
-
 	draw.Draw(Card, image.Rect(0, 0, 1500, 1000), image.NewUniform(color.RGBA{22, 22, 39, 255}), image.Point{0, 0}, draw.Src)
 
-	srcImg, _, err := image.Decode(base64.NewDecoder(base64.StdEncoding, bytes.NewBufferString(base)))
+	srcImg, _, err := image.Decode(base64.NewDecoder(base64.StdEncoding, bytes.NewBufferString(radar)))
 	if err != nil {
 		panic(err)
 	}
@@ -96,8 +90,6 @@ func CardProfile(card CardData, base string) string {
 	}).SubImage(image.Rect(100, 10, 700, 500))
 	// resize image
 	srcImg = resize.Resize(800, 0, srcImg, resize.Lanczos3)
-
-	// add radar chart
 
 	// add text
 	f, err := truetype.Parse(goregular.TTF)
