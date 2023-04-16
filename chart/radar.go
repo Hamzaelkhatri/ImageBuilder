@@ -2,8 +2,8 @@ package chart
 
 import (
 	"context"
+	"encoding/base64"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"runtime"
@@ -15,9 +15,7 @@ import (
 )
 
 // static data for dev
-var radarDataBJ = [][]float32{
-	{80, 6, 21, 11, 58, 17, 17},
-}
+var radarDataBJ = [][]float32{}
 
 func generateRadarItems(radarData [][]float32) []opts.RadarData {
 	items := make([]opts.RadarData, 0)
@@ -85,9 +83,10 @@ func radarStyle() *charts.Radar {
 	return radar
 }
 
-type RadarExamples struct{}
+type Radar struct{}
 
-func (RadarExamples) Generate() {
+func (Radar) Generate(Data [][]float32) string {
+	radarDataBJ = Data
 	page := components.NewPage()
 	page.AddCharts(
 		radarStyle(),
@@ -111,7 +110,5 @@ func (RadarExamples) Generate() {
 	); err != nil {
 		log.Fatal(err)
 	}
-	if err := ioutil.WriteFile("radar.png", buf, 0o644); err != nil {
-		log.Fatal(err)
-	}
+	return base64.StdEncoding.EncodeToString(buf)
 }
