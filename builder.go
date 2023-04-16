@@ -155,7 +155,7 @@ func CardProfile(card CardData, radar string) string {
 		d.Dot = fixed.P(70, 400+(i*50))
 		d.DrawString(raid.Name)
 		d.Dot = fixed.P(400, 400+(i*50))
-		if raid.Status != "Done" {
+		if raid.Status != "done" {
 			d.Src = image.NewUniform(color.RGBA{241, 210, 54, 255})
 			d.DrawString(raid.Status)
 			continue
@@ -169,8 +169,6 @@ func CardProfile(card CardData, radar string) string {
 		}
 		// d.DrawString(fmt.Sprintf(" %s", raid.Status))
 	}
-
-	// d.DrawString("Checkpoint exercise done : ")
 
 	// draw a rectangle
 	ctx := draw2dimg.NewGraphicContext(Card)
