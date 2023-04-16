@@ -14,12 +14,12 @@ func main() {
 			Raids: []ImageBuilder.Raid{
 				{
 					Name:   "Quad",
-					Status: "Done",
+					Status: "done",
 					Grade:  1,
 				},
 				{
 					Name:   "Sudoku",
-					Status: "Done",
+					Status: "done",
 					Grade:  0,
 				},
 			},

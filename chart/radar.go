@@ -104,7 +104,7 @@ func (Radar) Generate(Data [][]float32) string {
 	path := f.Name()
 	// _, filename
 	// filename = filename[:len(filename)-len("chart/radar.go")]
-	log.Println(path)
+	log.Println("Tmporary ", path)
 	if err := chromedp.Run(ctx, chromedp.Navigate("file://"+path),
 		chromedp.CaptureScreenshot(&buf),
 	); err != nil {
