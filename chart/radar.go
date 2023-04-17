@@ -29,9 +29,9 @@ var indicators = []*opts.Indicator{
 	{Name: "Math", Max: 100},
 	{Name: "Problem Solving", Max: 100},
 	{Name: "Unix", Max: 100},
-	{Name: "Git", Max: 100},
+	{Name: "Git", Max: 50},
 	{Name: "Algorithm", Max: 100},
-	{Name: "Soft Skills", Max: 60},
+	{Name: "Soft Skills", Max: 70},
 }
 
 func radarStyle() *charts.Radar {
@@ -66,7 +66,7 @@ func radarStyle() *charts.Radar {
 		}),
 	)
 
-	radar.AddSeries("", generateRadarItems(radarDataBJ)).
+	radar.AddSeries("TTTTT", generateRadarItems(radarDataBJ)).
 		SetSeriesOptions(
 			charts.WithLineStyleOpts(opts.LineStyle{
 				Width:   1,
@@ -79,6 +79,7 @@ func radarStyle() *charts.Radar {
 				Color: "#F9713C",
 			}),
 		)
+
 	return radar
 }
 

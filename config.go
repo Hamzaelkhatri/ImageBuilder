@@ -1,6 +1,8 @@
 package ImageBuilder
 
-import "github.com/Hamzaelkhatri/ImageBuilder/v2/chart"
+import (
+	"github.com/Hamzaelkhatri/ImageBuilder/v2/chart"
+)
 
 type Raid struct {
 	Name   string
@@ -17,9 +19,8 @@ type CardData struct {
 	Skills            [][]float32
 }
 
-func Init(card CardData) {
+func Init(card CardData) string {
 	char := chart.Radar{}
 	bas := char.Generate(card.Skills)
-	e := CardProfile(card, bas)
-	println(e)
+	return CardProfile(card, bas)
 }
