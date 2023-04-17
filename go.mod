@@ -1,4 +1,4 @@
-module github.com/Hamzaelkhatri/ImageBuilder/v2 // update version number
+module github.com/Hamzaelkhatri/ImageBuilder // update version number
 
 go 1.19
 
