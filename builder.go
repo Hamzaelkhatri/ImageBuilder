@@ -58,16 +58,6 @@ func Builder(arg []string) string {
 	return s
 }
 
-func drawCircle(img draw.Image, x, y, r int, c color.Color) {
-	for i := x - r; i < x+r; i++ {
-		for j := y - r; j < y+r; j++ {
-			if (i-x)*(i-x)+(j-y)*(j-y) < r*r {
-				img.Set(i, j, c)
-			}
-		}
-	}
-}
-
 func drawRectangle(img draw.Image, x, y, w, h, rx, ry int, c color.Color) {
 	ctx := draw2dimg.NewGraphicContext(img)
 	ctx.SetFillColor(c)
