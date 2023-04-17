@@ -139,11 +139,13 @@ func CardProfile(card CardData, radar string) string {
 	d.Src = image.NewUniform(color.RGBA{255, 255, 255, 255})
 	d.Face = face
 	d.DrawString("/ 122")
+	t := 0.5
 	for i, raid := range card.Raids {
 		d.Src = image.NewUniform(color.RGBA{255, 255, 255, 255})
 		d.Dot = fixed.P(70, 400+(i*50))
 		d.DrawString(raid.Name)
 		d.Dot = fixed.P(400, 400+(i*50))
+		t = float64(400) + float64(i*50)
 		if raid.Status != "done" {
 			d.Src = image.NewUniform(color.RGBA{241, 210, 54, 255})
 			d.DrawString(raid.Status)
@@ -156,18 +158,15 @@ func CardProfile(card CardData, radar string) string {
 			d.Src = image.NewUniform(color.RGBA{255, 0, 0, 255})
 			d.DrawString("Failed")
 		}
-		// d.DrawString(fmt.Sprintf(" %s", raid.Status))
 	}
-
 	// draw a rectangle
 	ctx := draw2dimg.NewGraphicContext(Card)
-
 	// Rectangle
-	ctx.BeginPath()      // Initialize a new path
-	ctx.MoveTo(600, 650) // Move to (600, 600)
+	ctx.BeginPath() // Initialize a new path
+	ctx.MoveTo(600, t+50)
 	ctx.LineTo(600, 250)
-	ctx.LineTo(50, 250)
-	ctx.LineTo(50, 650)
+	ctx.LineTo(20, 250)
+	ctx.LineTo(20, t+50)
 	ctx.Close() // Close the path
 	// add stroke
 	ctx.SetStrokeColor(color.RGBA{0x44, 0x44, 0x44, 0xff})
@@ -202,5 +201,17 @@ func CardProfile(card CardData, radar string) string {
 		panic(err)
 	}
 	w.Flush()
+	// save image
+	// fi, err := os.Create("card.png")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// defer fi.Close()
+
+	// _, err = fi.Write(buf.Bytes())
+	// if err != nil {
+	// 	panic(err)
+	// }
+
 	return base64.StdEncoding.EncodeToString(buf.Bytes())
 }

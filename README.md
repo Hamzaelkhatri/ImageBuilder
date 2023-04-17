@@ -1,1 +1,9 @@
 # ImageBuilder
+
+
+
+## 
+
+```
+Export ENDPOINT=PLATFOMRURL
+```

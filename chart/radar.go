@@ -66,7 +66,7 @@ func radarStyle() *charts.Radar {
 		}),
 	)
 
-	radar.AddSeries("TTTTT", generateRadarItems(radarDataBJ)).
+	radar.AddSeries("", generateRadarItems(radarDataBJ)).
 		SetSeriesOptions(
 			charts.WithLineStyleOpts(opts.LineStyle{
 				Width:   1,
