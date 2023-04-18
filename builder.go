@@ -9,7 +9,9 @@ import (
 	"image/color"
 	"image/draw"
 	"image/png"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/golang/freetype/truetype"
 	"github.com/llgcode/draw2d/draw2dimg"
@@ -86,8 +88,8 @@ func CardProfile(card CardData, radar string) string {
 		panic(err)
 	}
 	face := truetype.NewFace(f, &truetype.Options{
-		Size:    60,
-		DPI:     60,
+		Size:    50,
+		DPI:     50,
 		Hinting: font.Hinting(font.StretchCondensed),
 	})
 	d := &font.Drawer{
@@ -98,11 +100,16 @@ func CardProfile(card CardData, radar string) string {
 	}
 
 	d.DrawString(fmt.Sprintf("%s's Stats", card.Name))
-	percent := float64((float64(card.Level) / 40) * 100)
-	drawRectangle(Card, 100, 500+400, 700+700, 820, 60, -60, color.RGBA{0, 0, 0, 50})
-	drawRectangle(Card, 100, 500+400, (400-(int(percent)))+(int(percent)*10), 820, 60, -60, color.RGBA{32, 200, 93, 255})
 
-	d.Dot = fixed.P(600, 880)
+	percent := float64((float64(card.Level) / 40) * 100)
+	log.Println((250-(int(percent)))+(int(percent)*10), 700+610)
+	// perceent
+	progress := 10 + (int(percent) * 13)
+	log.Println(int(float64(progress)/float64(700+610)*100), progress)
+	drawRectangle(Card, 100, 570+400, 700+610, 920, 60, -60, color.RGBA{0, 0, 0, 50})
+	drawRectangle(Card, 100, 570+400, 20+(int(percent)*13), 920, 60, -60, color.RGBA{32, 200, 93, 255})
+
+	d.Dot = fixed.P(520, 960)
 	d.DrawString(fmt.Sprintf("level %d - %.2f %%", card.Level, percent))
 
 	face = truetype.NewFace(f, &truetype.Options{
@@ -115,7 +122,7 @@ func CardProfile(card CardData, radar string) string {
 		Dst:  Card,
 		Src:  image.NewUniform(color.RGBA{255, 255, 255, 255}),
 		Face: face,
-		Dot:  fixed.P(100, 800),
+		Dot:  fixed.P(100, 900),
 	}
 
 	d.DrawString("Piscine Level")
@@ -202,16 +209,16 @@ func CardProfile(card CardData, radar string) string {
 	}
 	w.Flush()
 	// save image
-	// fi, err := os.Create("card.png")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer fi.Close()
+	fi, err := os.Create("card.png")
+	if err != nil {
+		panic(err)
+	}
+	defer fi.Close()
 
-	// _, err = fi.Write(buf.Bytes())
-	// if err != nil {
-	// 	panic(err)
-	// }
+	_, err = fi.Write(buf.Bytes())
+	if err != nil {
+		panic(err)
+	}
 
 	return base64.StdEncoding.EncodeToString(buf.Bytes())
 }

@@ -10,7 +10,7 @@ func main() {
 			Name:              "Hamza",
 			NumberOfExercises: 110,
 			Avatar:            "https://learn.reboot01.com/git/avatars/9870e141f7a57c7d0b3e082d9cf97219?size=40",
-			Level:             29,
+			Level:             20,
 			Raids: []ImageBuilder.Raid{
 				{
 					Name:   "Quad",
