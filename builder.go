@@ -11,6 +11,7 @@ import (
 	"image/png"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/golang/freetype/truetype"
 	"github.com/llgcode/draw2d/draw2dimg"
@@ -145,7 +146,7 @@ func CardProfile(card CardData, radar string) string {
 	d.Src = image.NewUniform(color.RGBA{255, 255, 255, 255})
 	d.Face = face
 	d.DrawString("/ 122")
-	t := 0.5
+	t := 350.0
 	for i, raid := range card.Raids {
 		d.Src = image.NewUniform(color.RGBA{255, 255, 255, 255})
 		d.Dot = fixed.P(70, 400+(i*50))
@@ -208,16 +209,16 @@ func CardProfile(card CardData, radar string) string {
 	}
 	w.Flush()
 	// save image
-	// fi, err := os.Create("card.png")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer fi.Close()
+	fi, err := os.Create("card.png")
+	if err != nil {
+		panic(err)
+	}
+	defer fi.Close()
 
-	// _, err = fi.Write(buf.Bytes())
-	// if err != nil {
-	// 	panic(err)
-	// }
+	_, err = fi.Write(buf.Bytes())
+	if err != nil {
+		panic(err)
+	}
 
 	return base64.StdEncoding.EncodeToString(buf.Bytes())
 }

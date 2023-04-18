@@ -10,6 +10,13 @@ type Raid struct {
 	Grade  float32
 }
 
+type Checkpoint struct {
+	Name     string
+	Status   string
+	Grade    float32
+	MaxLevel int
+}
+
 type CardData struct {
 	Name              string
 	NumberOfExercises int

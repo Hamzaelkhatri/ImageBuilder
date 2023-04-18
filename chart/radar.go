@@ -25,13 +25,9 @@ func generateRadarItems(radarData [][]float32) []opts.RadarData {
 }
 
 var indicators = []*opts.Indicator{
-	{Name: "Golang", Max: 100},
-	{Name: "Math", Max: 100},
-	{Name: "Problem Solving", Max: 100},
-	{Name: "Unix", Max: 100},
-	{Name: "Git", Max: 50},
-	{Name: "Algorithm", Max: 100},
-	{Name: "Soft Skills", Max: 70},
+	{Name: "Quests", Max: 122},
+	{Name: "Checkpoints", Max: 31},
+	{Name: "Raids", Max: 3},
 }
 
 func radarStyle() *charts.Radar {
@@ -103,8 +99,6 @@ func (Radar) Generate(Data [][]float32) string {
 	var buf []byte
 	// get full of temporary of radar.html
 	path := f.Name()
-	// _, filename
-	// filename = filename[:len(filename)-len("chart/radar.go")]
 	log.Println("Tmporary ", path)
 	if err := chromedp.Run(ctx, chromedp.Navigate("file://"+path),
 		chromedp.CaptureScreenshot(&buf),
