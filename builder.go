@@ -101,16 +101,17 @@ func CardProfile(card CardData, radar string) string {
 
 	d.DrawString(fmt.Sprintf("%s's Stats", card.Name))
 
-	percent := float64((float64(card.Level) / 40) * 100)
-	log.Println((250-(int(percent)))+(int(percent)*10), 700+610)
-	// perceent
-	progress := 10 + (int(percent) * 13)
-	log.Println(int(float64(progress)/float64(700+610)*100), progress)
-	drawRectangle(Card, 100, 570+400, 700+610, 920, 60, -60, color.RGBA{0, 0, 0, 50})
-	drawRectangle(Card, 100, 570+400, 20+(int(percent)*13), 920, 60, -60, color.RGBA{32, 200, 93, 255})
+	baseLevel := card.Level - float64(int(card.Level))
+	log.Println((1310 * (baseLevel)), baseLevel, 1310)
 
-	d.Dot = fixed.P(520, 960)
-	d.DrawString(fmt.Sprintf("level %d - %.2f %%", card.Level, percent))
+	// perceent
+	d.Dot = fixed.P(590, 960)
+	if baseLevel == 0 {
+		baseLevel = 0.045
+	}
+	drawRectangle(Card, 100, 570+400, 700+610, 920, 60, -60, color.RGBA{0, 0, 0, 50})
+	drawRectangle(Card, 100, 570+400, int(1310*(baseLevel+0.05)), 920, 60, -60, color.RGBA{32, 200, 93, 255})
+	d.DrawString(fmt.Sprintf("level %d - %.2f %%", int(card.Level), 100*(card.Level-float64(int(card.Level)))))
 
 	face = truetype.NewFace(f, &truetype.Options{
 		Size:    45,
@@ -160,12 +161,20 @@ func CardProfile(card CardData, radar string) string {
 		}
 		if raid.Grade >= 1 {
 			d.Src = image.NewUniform(color.RGBA{86, 186, 16, 255})
-			d.DrawString("Succeeded")
+			// d.DrawString("Succeeded")
+			d.DrawString(fmt.Sprintf("%.1f%%", raid.Grade*100))
+
+		} else if raid.Grade < 1 && raid.Grade > 0.5 {
+			d.Src = image.NewUniform(color.RGBA{241, 210, 54, 255})
+			// d.DrawString("Failed")
+			d.DrawString(fmt.Sprintf("%.1f%%", raid.Grade*100))
 		} else {
 			d.Src = image.NewUniform(color.RGBA{255, 0, 0, 255})
-			d.DrawString("Failed")
+			// d.DrawString("Failed")
+			d.DrawString(fmt.Sprintf("%.1f%%", raid.Grade*100))
 		}
 	}
+
 	// draw a rectangle
 	ctx := draw2dimg.NewGraphicContext(Card)
 	// Rectangle

@@ -21,8 +21,9 @@ type CardData struct {
 	Name              string
 	NumberOfExercises int
 	Avatar            string
-	Level             int
+	Level             float64
 	Raids             []Raid
+	Checkpoints       []Checkpoint
 	Skills            [][]float32
 }
 
