@@ -11,7 +11,6 @@ import (
 	"image/png"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/golang/freetype/truetype"
 	"github.com/llgcode/draw2d/draw2dimg"
@@ -217,17 +216,5 @@ func CardProfile(card CardData, radar string) string {
 		panic(err)
 	}
 	w.Flush()
-	// save image
-	fi, err := os.Create("card.png")
-	if err != nil {
-		panic(err)
-	}
-	defer fi.Close()
-
-	_, err = fi.Write(buf.Bytes())
-	if err != nil {
-		panic(err)
-	}
-
 	return base64.StdEncoding.EncodeToString(buf.Bytes())
 }
